@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	    <title>SAAS-DDS接口自动化测试报告：</title>
+	    <meta name="generator" content="HTMLTestRunner 0.9.1"/>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	    <script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js"></script>
+	    <!-- <script type="text/javascript" src="js/echarts.common.min.js"></script> -->
+
+	    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 80%; }
+table       { font-size: 100%; }
+
+    /* -- heading ---------------------------------------------------------------------- */
+    /*h1 {
+        font-size: 16pt;/*决定标题"SAAS-DDS接口自动化测试报告"的样式-大小*/
+        color: gray; /*决定标题"SAAS-DDS接口自动化测试报告"的样式-颜色*/
+    }    这段不要效果更好*/
+    .heading {
+        margin-top: 0ex;
+        margin-bottom: 1ex;
+        /*margin-left: 40px;决定和左边框距离*/
+    }
+
+    .heading .attribute {
+        margin-top: 1ex; /*决定测试人员、开始时间、合计耗时、测试结果等的行距*/
+        margin-bottom: 0;
+    }
+
+    .heading .description {
+        margin-top: 4ex; /*决定"用例执行情况："与“测试结果”的行距*/
+        margin-bottom: 3ex; /*决定"用例执行情况："与"图例--通过、失败、错误"的距离*/
+    }
+
+    /* -- css div popup ------------------------------------------------------------------------ */
+    a.popup_link {
+    }
+
+    a.popup_link:hover {
+        color: red;
+    }
+
+    .popup_window {
+        display: none;
+        position: relative;
+        left: 0px;
+        top: 0px;
+        /*border: solid #627173 1px; */
+        padding: 10px;
+        /*background-color: #E6E6D6; */
+        font-family: "Lucida Console", "Courier New", Courier, monospace;
+        text-align: left;
+        font-size: 8pt;
+        /* width: 500px;*/
+    }
+
+    }
+    /* -- report ------------------------------------------------------------------------ */
+    #show_detail_line {
+        margin-top: 3ex;
+        margin-bottom: 1ex;
+    }
+    #result_table {
+        width: 99%;
+    }
+    #header_row {
+        font-weight: bold;
+        color: #303641;
+        background-color: #ebebeb;
+    }
+    #total_row  { font-weight: bold; }
+    .passClass  { background-color: #bdedbc; }
+    .failClass  { background-color: #ffefa4; }
+    .errorClass { background-color: #ffc9c9; }
+    .passCase   { color: #6c6; }
+    .failCase   { color: #FF6600; font-weight: bold; }
+    .errorCase  { color: #c00; font-weight: bold; }
+    .hiddenRow  { display: none; }
+    .testcase   { margin-left: 2em; }
+
+
+    /* -- ending ---------------------------------------------------------------------- */
+    #ending {
+    }
+
+    #div_base {
+                position:absolute;
+                top:0%;
+                left:5%;
+                right:5%;
+                width: auto;
+                height: auto;
+                margin: -15px 0 0 0;
+    }
+</style>
+
+
+	</head>
+	<body>
+	    <script language="javascript" type="text/javascript"><!--
+	    output_list = Array();
+
+	    /* level - 0:Summary; 1:Failed; 2:All */
+	    function showCase(level) {
+	        trs = document.getElementsByTagName("tr");
+	        for (var i = 0; i < trs.length; i++) {
+	            tr = trs[i];
+	            id = tr.id;
+	            if (id.substr(0,2) == 'ft') {
+	                if (level < 1) {
+	                    tr.className = 'hiddenRow';
+	                }
+	                else {
+	                    tr.className = '';
+	                }
+	            }
+	            if (id.substr(0,2) == 'pt') {
+	                if (level > 1) {
+	                    tr.className = '';
+	                }
+	                else {
+	                    tr.className = 'hiddenRow';
+	                }
+	            }
+	        }
+	    }
+
+
+	    function showClassDetail(cid, count) {
+	        var id_list = Array(count);
+	        var toHide = 1;
+	        for (var i = 0; i < count; i++) {
+	            tid0 = 't' + cid.substr(1) + '.' + (i+1);
+	            tid = 'f' + tid0;
+	            tr = document.getElementById(tid);
+	            if (!tr) {
+	                tid = 'p' + tid0;
+	                tr = document.getElementById(tid);
+	            }
+	            id_list[i] = tid;
+	            if (tr.className) {
+	                toHide = 0;
+	            }
+	        }
+	        for (var i = 0; i < count; i++) {
+	            tid = id_list[i];
+	            if (toHide) {
+	                document.getElementById('div_'+tid).style.display = 'none'
+	                document.getElementById(tid).className = 'hiddenRow';
+	            }
+	            else {
+	                document.getElementById(tid).className = '';
+	            }
+	        }
+	    }
+
+
+	    function showTestDetail(div_id){
+	        var details_div = document.getElementById(div_id)
+	        var displayState = details_div.style.display
+	        // alert(displayState)
+	        if (displayState != 'block' ) {
+	            displayState = 'block'
+	            details_div.style.display = 'block'
+	        }
+	        else {
+	            details_div.style.display = 'none'
+	        }
+	    }
+
+
+	    function html_escape(s) {
+	        s = s.replace(/&/g,'&amp;');
+	        s = s.replace(/</g,'&lt;');
+	        s = s.replace(/>/g,'&gt;');
+	        return s;
+	    }
+
+	    /* obsoleted by detail in <div>
+	    function showOutput(id, name) {
+	        var w = window.open("", //url
+	                        name,
+	                        "resizable,scrollbars,status,width=800,height=450");
+	        d = w.document;
+	        d.write("<pre>");
+	        d.write(html_escape(output_list[id]));
+	        d.write("\n");
+	        d.write("<a href='javascript:window.close()'>close</a>\n");
+	        d.write("</pre>\n");
+	        d.close();
+	    }
+	    */
+	    --></script>
+
+	    <div id="div_base">
+	        <div class='heading'>
+        <!--<h1 style="font-family: Microsoft YaHei">SAAS-DDS接口自动化测试报告：</h1>-->
+        <h2 style="font-family: Microsoft YaHei">SAAS-DDS接口自动化测试报告：</h2>
+<p class='attribute'><strong>测试人员:</strong> 陈诚</p>
+<p class='attribute'><strong>开始时间:</strong> 2020-05-16 16:02:53</p>
+<p class='attribute'><strong>合计耗时:</strong> 0:00:01.158276</p>
+<p class='attribute'><strong>测试结果:</strong> 共 20 通过 15 失败 3 错误 2，通过率= 75.00%</p>
+
+<!--<p class='description'>用例执行情况：</p>-->
+<br></br><br></br><div id="chart" style="width:50%;height:400px;float:inherit;"></div>
+<!-- https://www.w3school.com.cn/cssref/pr_margin-left.asp -->
+<p class='description'  size="14"><h4>用例执行情况：</h4></p>
+<!--<p class='description'  size="14"><h4>用例执行情况：</h4></p>-->
+    </div>
+    <!--下面这行决定饼图在左边还是右边？--> 
+    <!--<div style="float: left;width:50%;"><p class='description'>用例执行情况：</p></div>--> 
+    <!--<div class="testChars">
+    <!--<canvas id="myChart" width="250" height="250"></canvas></div>-->
+    <div style="float:inherit; margin-left: 20px;">
+</div>
+
+	        
+        <p id='show_detail_line'>
+        <a class="btn btn-primary" href='javascript:showCase(0)'>通过率 [75.00% ]</a>
+        <a class="btn btn-success" href='javascript:showCase(2)'>通过[ 15 ]</a>
+        <a class="btn btn-warning" href='javascript:showCase(3)'>错误[ 2 ]</a>
+        <a class="btn btn-danger" href='javascript:showCase(1)'>失败[ 3 ]</a>
+        <a class="btn btn-info" href='javascript:showCase(4)'>所有[ 20 ]</a>
+        </p>
+    <table id='result_table' class="table table-condensed table-bordered table-hover">
+    <colgroup>
+    <col align='left' />
+    <col align='right' />
+    <col align='right' />
+    <col align='right' />
+    <col align='right' />
+    <col align='right' />
+    </colgroup>
+    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+        <td>用例集/测试用例</td>
+        <td>总计</td>
+        <td>通过</td>
+        <td>错误</td>
+        <td>失败</td>
+        <!--<td>详细</td>-->
+        <td>查看</td>
+    </tr>
+    
+<tr class='passClass warning'>
+    <td>dds_iss.test_01.Test1</td>
+    <td class="text-center">2</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',2)" class="detail" id='c1'>详情</a></td>
+</tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1.1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1.1'>通过</button>
+    <div id='div_pt1.1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1.1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1.1'>通过</button>
+    <div id='div_pt1.1' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt1.1: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1.2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1.2'>通过</button>
+    <div id='div_pt1.2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1.2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1.2'>通过</button>
+    <div id='div_pt1.2' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt1.2: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>dds_iss.test_02.Test1</td>
+    <td class="text-center">2</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',2)" class="detail" id='c2'>详情</a></td>
+</tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2.1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2.1'>通过</button>
+    <div id='div_pt2.1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2.1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2.1'>通过</button>
+    <div id='div_pt2.1' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt2.1: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_04</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2.2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2.2'>通过</button>
+    <div id='div_pt2.2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2.2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2.2'>通过</button>
+    <div id='div_pt2.2' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt2.2: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>dds_iss.test_03.Test1</td>
+    <td class="text-center">6</td>
+    <td class="text-center">4</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',6)" class="detail" id='c3'>详情</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3.1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3.1'>通过</button>
+    <div id='div_pt3.1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3.1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3.1'>通过</button>
+    <div id='div_pt3.1' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt3.1: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3.2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_02</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3.2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3.2'>错误</button>
+    <div id='div_ft3.2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3.2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3.2'>错误</button>
+    <div id='div_ft3.2' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+ft3.2: start!
+end!
+Traceback (most recent call last):
+  File "F:\SAASInterfaceAuto\case\dds_iss\test_03.py", line 27, in test_02
+    self.assertTrue(3, a / b)
+ZeroDivisionError: division by zero
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3.3' class='none'>
+    <td class='failCase'><div class='testcase'>test_03</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3.3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3.3'>失败</button>
+    <div id='div_ft3.3' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3.3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3.3'>失败</button>
+    <div id='div_ft3.3' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+ft3.3: start!
+end!
+Traceback (most recent call last):
+  File "F:\SAASInterfaceAuto\case\dds_iss\test_03.py", line 33, in test_03
+    self.assertEqual(61, a*b)
+AssertionError: 61 != 6
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_case01: 分页拉取基础接驳点信息</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3.4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3.4'>通过</button>
+    <div id='div_pt3.4' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3.4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3.4'>通过</button>
+    <div id='div_pt3.4' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt3.4: start!
+拉取接驳点接口正常
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3.5' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_case02: 查询指定网点所有分拣计划</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3.5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3.5'>通过</button>
+    <div id='div_pt3.5' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3.5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3.5'>通过</button>
+    <div id='div_pt3.5' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt3.5: start!
+查询分拣计划接口正常
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3.6' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_case03: 分拣</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3.6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3.6'>通过</button>
+    <div id='div_pt3.6' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3.6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3.6'>通过</button>
+    <div id='div_pt3.6' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt3.6: start!
+分拣接口正常
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>dds_tms.test_01.Test1</td>
+    <td class="text-center">2</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',2)" class="detail" id='c4'>详情</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4.1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4.1'>通过</button>
+    <div id='div_pt4.1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4.1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4.1'>通过</button>
+    <div id='div_pt4.1' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt4.1: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4.2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4.2'>通过</button>
+    <div id='div_pt4.2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4.2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4.2'>通过</button>
+    <div id='div_pt4.2' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt4.2: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>dds_tms.test_02.Test1</td>
+    <td class="text-center">2</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c5',2)" class="detail" id='c5'>详情</a></td>
+</tr>
+
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5.1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5.1'>通过</button>
+    <div id='div_pt5.1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5.1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5.1'>通过</button>
+    <div id='div_pt5.1' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt5.1: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_04</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5.2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5.2'>通过</button>
+    <div id='div_pt5.2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5.2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5.2'>通过</button>
+    <div id='div_pt5.2' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt5.2: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>dds_tms.test_03.Test1</td>
+    <td class="text-center">6</td>
+    <td class="text-center">3</td>
+    <td class="text-center">1</td>
+    <td class="text-center">2</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c6',6)" class="detail" id='c6'>详情</a></td>
+</tr>
+
+<tr id='pt6.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6.1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6.1'>通过</button>
+    <div id='div_pt6.1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6.1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6.1'>通过</button>
+    <div id='div_pt6.1' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt6.1: start!
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft6.2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_02</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6.2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6.2'>错误</button>
+    <div id='div_ft6.2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6.2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6.2'>错误</button>
+    <div id='div_ft6.2' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+ft6.2: start!
+end!
+Traceback (most recent call last):
+  File "F:\SAASInterfaceAuto\case\dds_tms\test_03.py", line 27, in test_02
+    self.assertTrue(3, a / b)
+ZeroDivisionError: division by zero
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft6.3' class='none'>
+    <td class='failCase'><div class='testcase'>test_03</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6.3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6.3'>失败</button>
+    <div id='div_ft6.3' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6.3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6.3'>失败</button>
+    <div id='div_ft6.3' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+ft6.3: start!
+end!
+Traceback (most recent call last):
+  File "F:\SAASInterfaceAuto\case\dds_tms\test_03.py", line 33, in test_03
+    self.assertEqual(61, a*b)
+AssertionError: 61 != 6
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_case01: 查询任务操作服务</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6.4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6.4'>通过</button>
+    <div id='div_pt6.4' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6.4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6.4'>通过</button>
+    <div id='div_pt6.4' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt6.4: start!
+查询任务操作服务接口正常
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6.5' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_case02: 根据任务码查询任务详情</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6.5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6.5'>通过</button>
+    <div id='div_pt6.5' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6.5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6.5'>通过</button>
+    <div id='div_pt6.5' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+pt6.5: start!
+根据任务码查询任务详情接口正常
+end!
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft6.6' class='none'>
+    <td class='failCase'><div class='testcase'>test_case03: 更新任务状态</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6.6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6.6'>失败</button>
+    <div id='div_ft6.6' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6.6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6.6'>失败</button>
+    <div id='div_ft6.6' class="collapse in" style='text-align: left; color:red;cursor:pointer'>
+    <pre>
+    
+ft6.6: start!
+end!
+Traceback (most recent call last):
+  File "F:\SAASInterfaceAuto\case\dds_tms\test_03.py", line 99, in test_case03
+    self.assertEqual(response.json()["success"], True, 'success值为true')
+AssertionError: False != True : success值为true
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+    <tr id='total_row' class="text-center active">
+        <td>总计</td>
+        <td>20</td>
+        <td>15</td>
+        <td>2</td>
+        <td>3</td>
+        <td>通过率：75.00%</td>
+    </tr>
+    </table>
+    
+	        <div id='ending'> </div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+	        
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '测试执行情况 :',
+                x:'left'/*'测试执行情况'在饼图上方的的位置 center left right*/
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ['#95b75d', 'grey', '#b64645'],
+            legend: { /*设置echart图例（legend）的位置 https://blog.csdn.net/qq_42959262/article/details/84791034*/
+                orient: 'vertical',
+                left: 'right',/*图例在左边？还是右边？*/
+                data: ['通过','失败','错误']
+            },
+            series : [
+                {
+                    name: '测试执行情况',
+                    type: 'pie',
+                    radius : '60%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:15, name:'通过'},
+                        {value:3, name:'失败'},
+                        {value:2, name:'错误'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    
+	    </div>
+	</body>
+	</html>
+	
